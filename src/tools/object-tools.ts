@@ -564,7 +564,7 @@ export class ObjectTools {
       const searchData: GHLSearchObjectRecordsRequest = {
         locationId: params.locationId || this.ghlClient.getConfig().locationId,
         page: params.page || 1,
-        pageLimit: params.pageLimit || 10,
+        pageLimit: params.pageLimit || 100,
         query: params.query,
         searchAfter: params.searchAfter || []
       };
