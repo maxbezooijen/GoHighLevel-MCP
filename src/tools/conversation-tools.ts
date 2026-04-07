@@ -142,10 +142,10 @@ export class ConversationTools {
             },
             limit: {
               type: 'number',
-              description: 'Maximum number of conversations to return (default: 20, max: 100)',
+              description: 'Maximum number of conversations to return (default: 100, max: 100)',
               minimum: 1,
               maximum: 100,
-              default: 20
+              default: 100
             },
             assignedTo: {
               type: 'string',
@@ -166,10 +166,10 @@ export class ConversationTools {
             },
             limit: {
               type: 'number',
-              description: 'Maximum number of messages to return (default: 20)',
+              description: 'Maximum number of messages to return (default: 100)',
               minimum: 1,
               maximum: 100,
-              default: 20
+              default: 100
             },
             messageTypes: {
               type: 'array',
@@ -711,7 +711,7 @@ export class ConversationTools {
         contactId: params.contactId,
         query: params.query,
         status: params.status || 'all',
-        limit: params.limit || 20,
+        limit: params.limit || 100,
         assignedTo: params.assignedTo
       };
 
@@ -742,7 +742,7 @@ export class ConversationTools {
       const messagesResponse = await this.ghlClient.getConversationMessages(
         params.conversationId,
         {
-          limit: params.limit || 20,
+          limit: params.limit || 100,
           type: params.messageTypes?.join(',')
         }
       );
