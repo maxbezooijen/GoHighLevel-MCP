@@ -668,14 +668,14 @@ class GHLMCPHttpServer {
   private async testGHLConnection(): Promise<void> {
     try {
       console.log('[GHL MCP HTTP] Testing GHL API connection...');
-      
+
       const result = await this.ghlClient.testConnection();
-      
+
       console.log('[GHL MCP HTTP] ✅ GHL API connection successful');
       console.log(`[GHL MCP HTTP] Connected to location: ${result.data?.locationId}`);
     } catch (error) {
-      console.error('[GHL MCP HTTP] ❌ GHL API connection failed:', error);
-      throw new Error(`Failed to connect to GHL API: ${error}`);
+      console.log('[GHL MCP HTTP] ⚠️ GHL API connection test failed (this may be due to API key scopes)');
+      console.log('[GHL MCP HTTP] Server will start anyway - individual tools may work depending on your API key permissions');
     }
   }
 

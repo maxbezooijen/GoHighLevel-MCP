@@ -606,14 +606,14 @@ class GHLMCPServer {
   private async testGHLConnection(): Promise<void> {
     try {
       process.stderr.write('[GHL MCP] Testing GHL API connection...\n');
-      
+
       const result = await this.ghlClient.testConnection();
-      
+
       process.stderr.write('[GHL MCP] ✅ GHL API connection successful\n');
       process.stderr.write(`[GHL MCP] Connected to location: ${result.data?.locationId}\n`);
     } catch (error) {
-      console.error('[GHL MCP] ❌ GHL API connection failed:', error);
-      throw new Error(`Failed to connect to GHL API: ${error}`);
+      process.stderr.write('[GHL MCP] ⚠️ GHL API connection test failed (this may be due to API key scopes)\n');
+      process.stderr.write('[GHL MCP] Server will start anyway - individual tools may work depending on your API key permissions\n');
     }
   }
 
@@ -625,9 +625,9 @@ class GHLMCPServer {
     process.stderr.write('=====================================\n');
     
     try {
-      // Test GHL API connection
+      // Test GHL API connection (non-fatal)
       await this.testGHLConnection();
-      
+
       // Create transport
       const transport = new StdioServerTransport();
       
