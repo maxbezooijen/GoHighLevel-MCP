@@ -63,10 +63,10 @@ export class OpportunityTools {
             },
             limit: {
               type: 'number',
-              description: 'Maximum number of opportunities to return (default: 20, max: 100)',
+              description: 'Maximum number of opportunities to return (default: 100, max: 100)',
               minimum: 1,
               maximum: 100,
-              default: 20
+              default: 100
             }
           }
         }
@@ -330,7 +330,7 @@ export class OpportunityTools {
       // Build search parameters with correct API naming (underscores)
       const searchParams: any = {
         location_id: this.ghlClient.getConfig().locationId,
-        limit: params.limit || 20
+        limit: params.limit || 100
       };
 
       // Only add parameters if they have values

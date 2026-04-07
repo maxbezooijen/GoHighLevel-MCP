@@ -537,7 +537,7 @@ export class CalendarTools {
           type: 'object',
           properties: {
             appointmentId: { type: 'string', description: 'Appointment ID' },
-            limit: { type: 'number', description: 'Maximum number of notes to return', default: 10 },
+            limit: { type: 'number', description: 'Maximum number of notes to return', default: 100 },
             offset: { type: 'number', description: 'Number of notes to skip', default: 0 }
           },
           required: ['appointmentId']
@@ -588,7 +588,7 @@ export class CalendarTools {
         inputSchema: {
           type: 'object',
           properties: {
-            limit: { type: 'number', description: 'Maximum number to return', default: 20 },
+            limit: { type: 'number', description: 'Maximum number to return', default: 100 },
             skip: { type: 'number', description: 'Number to skip', default: 0 }
           }
         }
@@ -655,7 +655,7 @@ export class CalendarTools {
         inputSchema: {
           type: 'object',
           properties: {
-            limit: { type: 'number', description: 'Maximum number to return', default: 20 },
+            limit: { type: 'number', description: 'Maximum number to return', default: 100 },
             skip: { type: 'number', description: 'Number to skip', default: 0 }
           }
         }

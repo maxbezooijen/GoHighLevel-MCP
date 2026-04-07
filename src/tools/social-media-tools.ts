@@ -48,7 +48,7 @@ export class SocialMediaTools {
               description: 'Comma-separated account IDs to filter by'
             },
             skip: { type: 'number', description: 'Number of posts to skip', default: 0 },
-            limit: { type: 'number', description: 'Number of posts to return', default: 10 },
+            limit: { type: 'number', description: 'Number of posts to return', default: 100 },
             fromDate: { type: 'string', description: 'Start date (ISO format)' },
             toDate: { type: 'string', description: 'End date (ISO format)' },
             includeUsers: { type: 'boolean', description: 'Include user data in response', default: true },
@@ -215,7 +215,7 @@ export class SocialMediaTools {
           type: 'object',
           properties: {
             skip: { type: 'number', description: 'Number to skip', default: 0 },
-            limit: { type: 'number', description: 'Number to return', default: 10 },
+            limit: { type: 'number', description: 'Number to return', default: 100 },
             includeUsers: { type: 'boolean', description: 'Include user data' },
             userId: { type: 'string', description: 'Filter by user ID' }
           }
@@ -250,7 +250,7 @@ export class SocialMediaTools {
           type: 'object',
           properties: {
             searchText: { type: 'string', description: 'Search for categories' },
-            limit: { type: 'number', description: 'Number to return', default: 10 },
+            limit: { type: 'number', description: 'Number to return', default: 100 },
             skip: { type: 'number', description: 'Number to skip', default: 0 }
           }
         }
@@ -273,7 +273,7 @@ export class SocialMediaTools {
           type: 'object',
           properties: {
             searchText: { type: 'string', description: 'Search for tags' },
-            limit: { type: 'number', description: 'Number to return', default: 10 },
+            limit: { type: 'number', description: 'Number to return', default: 100 },
             skip: { type: 'number', description: 'Number to skip', default: 0 }
           }
         }

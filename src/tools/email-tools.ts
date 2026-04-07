@@ -42,7 +42,7 @@ export class EmailTools {
             limit: {
               type: 'number',
               description: 'Maximum number of campaigns to return.',
-              default: 10
+              default: 100
             },
             offset: {
               type: 'number',
@@ -84,7 +84,7 @@ export class EmailTools {
             limit: {
               type: 'number',
               description: 'Maximum number of templates to return.',
-              default: 10
+              default: 100
             },
             offset: {
               type: 'number',

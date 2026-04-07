@@ -184,8 +184,8 @@ export class BlogTools {
         },
         limit: {
           type: 'number',
-          description: 'Number of posts to retrieve (default: 10, max recommended: 50)',
-          default: 10
+          description: 'Number of posts to retrieve (default: 50, max recommended: 50)',
+          default: 50
         },
         offset: {
           type: 'number',
@@ -215,8 +215,8 @@ export class BlogTools {
       properties: {
         limit: {
           type: 'number',
-          description: 'Number of blogs to retrieve (default: 10)',
-          default: 10
+          description: 'Number of blogs to retrieve (default: 100)',
+          default: 100
         },
         skip: {
           type: 'number',
@@ -240,8 +240,8 @@ export class BlogTools {
       properties: {
         limit: {
           type: 'number',
-          description: 'Number of authors to retrieve (default: 10)',
-          default: 10
+          description: 'Number of authors to retrieve (default: 100)',
+          default: 100
         },
         offset: {
           type: 'number',
@@ -261,8 +261,8 @@ export class BlogTools {
       properties: {
         limit: {
           type: 'number',
-          description: 'Number of categories to retrieve (default: 10)',
-          default: 10
+          description: 'Number of categories to retrieve (default: 100)',
+          default: 100
         },
         offset: {
           type: 'number',
@@ -420,7 +420,7 @@ export class BlogTools {
       const searchParams = {
         locationId: this.ghlClient.getConfig().locationId,
         blogId: params.blogId,
-        limit: params.limit || 10,
+        limit: params.limit || 50,
         offset: params.offset || 0,
         searchTerm: params.searchTerm,
         status: params.status
@@ -452,7 +452,7 @@ export class BlogTools {
       const searchParams = {
         locationId: this.ghlClient.getConfig().locationId,
         skip: params.skip || 0,
-        limit: params.limit || 10,
+        limit: params.limit || 100,
         searchTerm: params.searchTerm
       };
 
@@ -481,7 +481,7 @@ export class BlogTools {
     try {
       const searchParams = {
         locationId: this.ghlClient.getConfig().locationId,
-        limit: params.limit || 10,
+        limit: params.limit || 100,
         offset: params.offset || 0
       };
 
@@ -510,7 +510,7 @@ export class BlogTools {
     try {
       const searchParams = {
         locationId: this.ghlClient.getConfig().locationId,
-        limit: params.limit || 10,
+        limit: params.limit || 100,
         offset: params.offset || 0
       };
 

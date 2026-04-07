@@ -66,8 +66,8 @@ export class LocationTools {
             },
             limit: {
               type: 'number',
-              description: 'Maximum number of locations to return (default: 10)',
-              default: 10
+              description: 'Maximum number of locations to return (default: 100)',
+              default: 100
             },
             order: {
               type: 'string',
@@ -358,8 +358,8 @@ export class LocationTools {
             },
             limit: {
               type: 'number',
-              description: 'Maximum number of tasks to return (default: 25)',
-              default: 25
+              description: 'Maximum number of tasks to return (default: 100)',
+              default: 100
             },
             skip: {
               type: 'number',
@@ -627,8 +627,8 @@ export class LocationTools {
             },
             limit: {
               type: 'number',
-              description: 'Maximum number to return (default: 25)',
-              default: 25
+              description: 'Maximum number to return (default: 100)',
+              default: 100
             },
             type: {
               type: 'string',

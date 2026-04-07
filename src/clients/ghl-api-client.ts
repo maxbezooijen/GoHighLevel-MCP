@@ -554,7 +554,7 @@ export class GHLApiClient {
       // Start with just locationId and pageLimit as per API requirements
       const payload: any = {
         locationId: searchParams.locationId || this.config.locationId,
-        pageLimit: searchParams.limit || 25
+        pageLimit: searchParams.limit || 100
       };
 
       // Only add optional parameters if they have valid values
@@ -1319,7 +1319,7 @@ export class GHLApiClient {
   async getContactsByBusiness(businessId: string, params: { limit?: number; skip?: number; query?: string } = {}): Promise<GHLApiResponse<GHLSearchContactsResponse>> {
     try {
       const queryParams = {
-        limit: params.limit || 25,
+        limit: params.limit || 100,
         skip: params.skip || 0,
         ...(params.query && { query: params.query })
       };
@@ -2241,7 +2241,7 @@ export class GHLApiClient {
     try {
       const queryParams = {
         skip: params.skip || 0,
-        limit: params.limit || 10,
+        limit: params.limit || 100,
         order: params.order || 'asc',
         ...(params.companyId && { companyId: params.companyId }),
         ...(params.email && { email: params.email })
@@ -2650,7 +2650,7 @@ export class GHLApiClient {
         originId: params.originId,
         deleted: params.deleted || false,
         skip: params.skip || 0,
-        limit: params.limit || 25,
+        limit: params.limit || 100,
         ...(params.type && { type: params.type })
       };
 

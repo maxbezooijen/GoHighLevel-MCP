@@ -287,7 +287,7 @@ export class ObjectTools {
             pageLimit: { 
               type: 'number', 
               description: 'Number of records per page',
-              default: 10,
+              default: 100,
               minimum: 1,
               maximum: 100
             },

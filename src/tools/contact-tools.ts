@@ -92,7 +92,7 @@ export class ContactTools {
             query: { type: 'string', description: 'Search query string' },
             email: { type: 'string', description: 'Filter by email address' },
             phone: { type: 'string', description: 'Filter by phone number' },
-            limit: { type: 'number', description: 'Maximum number of results (default: 25)' }
+            limit: { type: 'number', description: 'Maximum number of results (default: 100)' }
           }
         }
       },

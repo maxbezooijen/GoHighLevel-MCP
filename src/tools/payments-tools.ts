@@ -154,7 +154,7 @@ export class PaymentsTools {
             limit: {
               type: 'number',
               description: 'Maximum number of items per page',
-              default: 10
+              default: 100
             },
             offset: {
               type: 'number',
@@ -341,7 +341,7 @@ export class PaymentsTools {
             limit: {
               type: 'number',
               description: 'Maximum number of items per page',
-              default: 10
+              default: 100
             },
             offset: {
               type: 'number',
@@ -430,7 +430,7 @@ export class PaymentsTools {
             limit: {
               type: 'number',
               description: 'Maximum number of items per page',
-              default: 10
+              default: 100
             },
             offset: {
               type: 'number',

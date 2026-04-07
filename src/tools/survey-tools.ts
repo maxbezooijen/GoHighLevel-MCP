@@ -26,7 +26,7 @@ export class SurveyTools {
             },
             limit: {
               type: 'number',
-              description: 'Maximum number of surveys to return (max: 50, default: 10)'
+              description: 'Maximum number of surveys to return (max: 50, default: 50)'
             },
             type: {
               type: 'string',
@@ -52,7 +52,7 @@ export class SurveyTools {
             },
             limit: {
               type: 'number',
-              description: 'Number of submissions per page (max: 100, default: 20)'
+              description: 'Number of submissions per page (max: 100, default: 100)'
             },
             surveyId: {
               type: 'string',
@@ -123,7 +123,7 @@ export class SurveyTools {
           returnedCount: result.data.surveys.length,
           pagination: {
             skip: params.skip || 0,
-            limit: params.limit || 10
+            limit: params.limit || 50
           },
           ...(params.type && { filterType: params.type })
         }
@@ -165,7 +165,7 @@ export class SurveyTools {
             currentPage: result.data.meta.currentPage,
             nextPage: result.data.meta.nextPage,
             prevPage: result.data.meta.prevPage,
-            limit: params.limit || 20
+            limit: params.limit || 100
           },
           filters: {
             ...(params.surveyId && { surveyId: params.surveyId }),

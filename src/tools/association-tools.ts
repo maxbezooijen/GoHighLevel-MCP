@@ -37,7 +37,7 @@ export class AssociationTools {
             limit: {
               type: 'number',
               description: 'Maximum number of records to return (max 100)',
-              default: 20
+              default: 100
             }
           }
         }
@@ -205,7 +205,7 @@ export class AssociationTools {
             limit: {
               type: 'number',
               description: 'Maximum number of records to return',
-              default: 20
+              default: 100
             },
             associationIds: {
               type: 'array',
@@ -247,7 +247,7 @@ export class AssociationTools {
           const result = await this.apiClient.getAssociations({
             locationId: params.locationId || '',
             skip: params.skip || 0,
-            limit: params.limit || 20
+            limit: params.limit || 100
           });
           return {
             success: true,
@@ -353,7 +353,7 @@ export class AssociationTools {
             recordId: params.recordId,
             locationId: params.locationId || '',
             skip: params.skip || 0,
-            limit: params.limit || 20,
+            limit: params.limit || 100,
             associationIds: params.associationIds
           });
           return {

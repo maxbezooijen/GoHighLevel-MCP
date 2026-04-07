@@ -231,10 +231,10 @@ export class ConversationTools {
           properties: {
             limit: {
               type: 'number',
-              description: 'Maximum number of conversations to check (default: 10)',
+              description: 'Maximum number of conversations to check (default: 100)',
               minimum: 1,
-              maximum: 50,
-              default: 10
+              maximum: 100,
+              default: 100
             },
             status: {
               type: 'string',
@@ -814,7 +814,7 @@ export class ConversationTools {
         (params.status === 'all' || params.status === 'unread') ? params.status : 'unread';
       const searchParams = {
         locationId: this.ghlClient.getConfig().locationId,
-        limit: params.limit || 10,
+        limit: params.limit || 100,
         status,
         sortBy: 'last_message_date' as const,
         sort: 'desc' as const
