@@ -1,0 +1,9 @@
+{
+  "name": "gohighlevel-mcp",
+  "version": "0.1.0",
+  "description": "Self-build GoHighLevel MCP (replaces hosted). Hand-rolled JSON-RPC over stdio, zero deps. Reuses PIT from secrets.env.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}
