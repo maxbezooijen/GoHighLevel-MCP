@@ -63,6 +63,45 @@ const TOOLS = [
     inputSchema: { type: "object", properties: {} },
     handler: async () => ghlRequest("GET", "/objects/", { query: { locationId: LOC() } }),
   },
+  {
+    name: "ghl_list_custom_object_records",
+    description: "List records of a specific custom object schema. Read-only. Verplicht: object_key (de schema-key, bv. 'debiteurdossier' uit ghl_list_custom_objects). Optioneel: limit, cursor.",
+    inputSchema: {
+      type: "object",
+      properties: { object_key: { type: "string" }, limit: { type: "number" }, cursor: { type: "string" } },
+      required: ["object_key"],
+    },
+    handler: async ({ object_key, limit, cursor }) =>
+      ghlRequest("GET", "/objects/" + object_key + "/records", { query: { locationId: LOC(), limit, startAfter: cursor } }),
+  },
+  {
+    name: "ghl_create_custom_object_record",
+    description: "Create a record in a custom object schema (POST /objects/{key}/records). Write — dryRun:true to preview. Verplicht: object_key, fields (record-body met custom-field-values).",
+    inputSchema: {
+      type: "object",
+      properties: { object_key: { type: "string" }, fields: { type: "object", description: "Record body (custom-field key/values)." }, ...dryRunProp },
+      required: ["object_key", "fields"],
+    },
+    handler: async ({ object_key, fields, dryRun }) => {
+      const body = { locationId: LOC(), ...fields };
+      if (dryRun) return { dryRun: true, plan: plan("POST", "/objects/" + object_key + "/records", { body }) };
+      return ghlRequest("POST", "/objects/" + object_key + "/records", { body });
+    },
+  },
+  {
+    name: "ghl_update_custom_object_record",
+    description: "Update a custom object record (PUT /objects/{key}/records/{id}). Write — dryRun:true to preview. Verplicht: object_key, record_id, fields.",
+    inputSchema: {
+      type: "object",
+      properties: { object_key: { type: "string" }, record_id: { type: "string" }, fields: { type: "object", description: "Partial record body." }, ...dryRunProp },
+      required: ["object_key", "record_id", "fields"],
+    },
+    handler: async ({ object_key, record_id, fields, dryRun }) => {
+      const body = { id: record_id, locationId: LOC(), ...fields };
+      if (dryRun) return { dryRun: true, plan: plan("PUT", "/objects/" + object_key + "/records/" + record_id, { body }) };
+      return ghlRequest("PUT", "/objects/" + object_key + "/records/" + record_id, { body });
+    },
+  },
 
   // ===== B. Contacts =====
   {
@@ -277,19 +316,47 @@ const TOOLS = [
   // ===== G. Invoices (read-only; update later) =====
   {
     name: "ghl_list_invoices",
-    description: "List invoices for the location. Read-only. Filters: contact_id, limit, offset.",
+    description: "List invoices for the location. Read-only. Filters: contact_id, limit, offset. Uses altId/altType (GHL multi-tenant parametrisatie).",
     inputSchema: {
       type: "object",
-      properties: { contact_id: { type: "string" }, limit: { type: "number" }, offset: { type: "number" } },
+      properties: { contact_id: { type: "string" }, limit: { type: "number" }, offset: { type: "string", description: "Pagination cursor (string, bv. '0')." } },
     },
     handler: async ({ contact_id, limit, offset }) =>
-      ghlRequest("GET", "/invoices/", { query: { locationId: LOC(), contactId: contact_id, limit, offset } }),
+      ghlRequest("GET", "/invoices/", { query: { altId: LOC(), altType: "location", contactId: contact_id, limit, offset: String(offset === undefined ? 0 : offset) } }),
   },
   {
     name: "ghl_get_invoice",
     description: "Get one invoice by id (incl. line items, status, amount). Read-only.",
     inputSchema: { type: "object", properties: { invoice_id: { type: "string" } }, required: ["invoice_id"] },
-    handler: async ({ invoice_id }) => ghlRequest("GET", "/invoices/" + invoice_id),
+    handler: async ({ invoice_id }) => ghlRequest("GET", "/invoices/" + invoice_id, { query: { altId: LOC(), altType: "location" } }),
+  },
+  {
+    name: "ghl_update_invoice",
+    description: "Update an invoice (PUT /invoices/{id}). Write — dryRun:true to preview. `fields` is the partial invoice body (status, amount, lineItems, etc. — see marketplace.gohighlevel.com/docs/invoices).",
+    inputSchema: {
+      type: "object",
+      properties: { invoice_id: { type: "string" }, fields: { type: "object", description: "Partial invoice body." }, ...dryRunProp },
+      required: ["invoice_id", "fields"],
+    },
+    handler: async ({ invoice_id, fields, dryRun }) => {
+      const body = { altType: "location", altId: LOC(), ...fields };
+      if (dryRun) return { dryRun: true, plan: plan("PUT", "/invoices/" + invoice_id, { body }) };
+      return ghlRequest("PUT", "/invoices/" + invoice_id, { body });
+    },
+  },
+  {
+    name: "ghl_create_invoice",
+    description: "Create a new invoice (POST /invoices/). Write — dryRun:true to preview. `fields`: name, contactId, email, issueDate, dueDate, currency, lineItems[], etc.",
+    inputSchema: {
+      type: "object",
+      properties: { fields: { type: "object", description: "Invoice body (name, contactId, email, lineItems[], ...)." }, ...dryRunProp },
+      required: ["fields"],
+    },
+    handler: async ({ fields, dryRun }) => {
+      const body = { altType: "location", altId: LOC(), ...fields };
+      if (dryRun) return { dryRun: true, plan: plan("POST", "/invoices/", { body }) };
+      return ghlRequest("POST", "/invoices/", { body });
+    },
   },
 
   // ===== H. Proposals / Documents (scope-muur) =====
