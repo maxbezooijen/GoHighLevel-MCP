@@ -1,3 +1,72 @@
+# ---- secrets (never commit) ----
+.env
+.env.*
+!.env.example
+!.env.sample
+*.token
+.token
+*token*.json
+.session.json
+*secret*
+*credential*
+*.pem
+*.key
+*.p12
+*.pfx
+service-account*.json
+oauth*.json
+gcp-*.json
+.cf-token
+
+# ---- personal / debtor data (GDPR/AVG) ----
+reports/
+analyse/
+analyses/
+fixtures/
+exports/
+dossiers/
+data/
+*-export-*.json
+betwisting-*.json
+register*.json
+scan-items*.json
+schrijfblok-*.json
+gesprekken*.json
+nul-*.json
+
+# ---- deps / build / cache ----
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+dist/
+build/
+.cache/
+*.log
+.DS_Store
+
+# ---- local state ----
+*.sqlite
+*.db
+tmp/
+.tmp/
+
+# ---- test/build noise ----
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+htmlcov/
+.coverage
+
+# ---- local db dumps / backups ----
+*.db.bak
+*.bak
+index.db*
+*.pre-partition-*
+*.sqlite3
+
+# ---- preserved from original .gitignore ----
 node_modules/
 .env
 *.log
