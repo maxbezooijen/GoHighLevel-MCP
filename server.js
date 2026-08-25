@@ -679,7 +679,15 @@ const TOOLS = [
       required: ["type", "contact_id", "body"],
     },
     handler: async ({ type, contact_id, body, send_real_correspondence }) => {
-      const reqBody = { type, contactId: contact_id, locationId: LOC(), body };
+      // GHL API: SMS/WhatsApp gebruiken `message`, Email gebruikt `html` + `subject`.
+      // `body` wordt door GHL genegeerd → 422 "no message or attachments".
+      const reqBody = { type, contactId: contact_id, locationId: LOC() };
+      if (type === "Email") {
+        reqBody.html = body;
+        reqBody.subject = "Bericht van TodayIClaim";
+      } else {
+        reqBody.message = body;
+      }
       if (send_real_correspondence !== true) {
         return {
           sent: false,
@@ -707,7 +715,15 @@ const TOOLS = [
     },
     handler: async ({ type, contact_id, body, confirm }) => {
       if (confirm !== true) throw new Error("Refused: ghl_send_message requires confirm=true (would send a real message to the contact).");
-      const res = await ghlRequest("POST", "/conversations/messages", { body: { type, contactId: contact_id, locationId: LOC(), body } });
+      // GHL API: SMS/WhatsApp gebruiken `message`, Email gebruikt `html` + `subject`.
+      const reqBody = { type, contactId: contact_id, locationId: LOC() };
+      if (type === "Email") {
+        reqBody.html = body;
+        reqBody.subject = "Bericht van TodayIClaim";
+      } else {
+        reqBody.message = body;
+      }
+      const res = await ghlRequest("POST", "/conversations/messages", { body: reqBody });
       return { sent: true, note: "⚠️ confirm=true — bericht is VERSTUURD.", result: res };
     },
   },
